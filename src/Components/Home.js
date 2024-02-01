@@ -495,22 +495,22 @@ const Home = () => {
                    <FacebookIcon size={40} round={true}/>  
                   </FacebookShareButton>
                   <WhatsappShareButton
-                  url="https://jagadeeshpavan.vercel.app/"
+                  url="https://news-feedclient.vercel.app/"
                   >
                     <WhatsappIcon size={40} round={true}/>
                   </WhatsappShareButton>
                   <TwitterShareButton
-                  url="https://amazon.com"
+                  url="https://news-feedclient.vercel.app/"
                   >
                     <TwitterIcon size={40} round={true}/>
                   </TwitterShareButton>
                   <LinkedinShareButton
-                  url="https://amazon.com"
+                  url="https://news-feedclient.vercel.app/"
                   >
                   <LinkedinIcon size={40} round={true}/>
                   </LinkedinShareButton>
                   <EmailShareButton
-                  url="https://amazon.com"
+                  url="https://news-feedclient.vercel.app/"
                   >
                     <EmailIcon size={40} round={true}/>
                   </EmailShareButton>
