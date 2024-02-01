@@ -1,20 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-import axios from "axios";
-import { AiFillDislike, AiFillLike } from "react-icons/ai";
-import { BiCommentDetail, BiDislike, BiLike } from "react-icons/bi";
-import { FaCommentAlt } from "react-icons/fa";
-import { HiOutlineDotsVertical } from "react-icons/hi";
-import { IoMdShare } from "react-icons/io";
-import {
-  FacebookIcon,
-  FacebookShareButton, WhatsappShareButton
-} from "react-share";
-import { ToastContainer, toast } from "react-toastify";
-import { BASE_URL } from '../Helper.js/Helper';
-import "./Home.css";
 import Navbar from "./Navbar";
+import axios from "axios";
+import { AiFillLike } from "react-icons/ai";
+import { AiFillDislike } from "react-icons/ai";
+import { FaCommentAlt } from "react-icons/fa";
+import { BiLike } from "react-icons/bi";
+import { BiDislike } from "react-icons/bi";
+import { BiCommentDetail } from "react-icons/bi";
+import { IoMdShare } from "react-icons/io";
+import { ToastContainer, toast } from "react-toastify";
+import "./Home.css";
 import { calculateTimeDifference } from "./PostingTime";
+import { HiOutlineDotsVertical } from "react-icons/hi";
+import{FacebookShareButton, WhatsappShareButton,EmailShareButton,TwitterShareButton,
+  FacebookIcon,LinkedinShareButton,WhatsappIcon,LinkedinIcon,EmailIcon,TwitterIcon,} from "react-share";
+import { BASE_URL } from '../Helper.js/Helper';
 
 const Home = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -22,17 +23,18 @@ const Home = () => {
   const [commentVisible, setCommentVisible] = useState({});
   const [moreVisible, setMoreVisible] = useState(false);
   const [comment, setComment] = useState("");
+  
   const [editing, setEditing] = useState();
   const [isEditing, setIsEditing] = useState(false);
   const [displayButtons, setDisplayButtons] = useState(false);
-  const [commentLikes, ] = useState(0);
-  const [commentDislikes, ] = useState(0);
+  const [commentLikes, /*setCommentLikes*/] = useState(0);
+  const [commentDislikes, /*setCommentDislikes*/] = useState(0);
   const [loginUser, setLoginUser] = useState("");
   const [shareButtons, setShareButtons] = useState(false);
   const commentSectionRef = useRef(null);
 
   const [token] = useState(localStorage.getItem("token"));
- 
+  // const currentPageUrl = window.location.href;
 
   useEffect(() => {
     axios
@@ -55,12 +57,12 @@ const Home = () => {
     }));
   };
 
-  const handleShareClick = () => {
-    setShareButtons(!shareButtons);
+  const handleShareClick = (postId) => {
+    setShareButtons((prevShareButtons) => ({
+   ...prevShareButtons,
+   [postId]:!prevShareButtons[postId]
+    }));
   };
-
-  // const postQuote = 'Please share this post';
-  // const postHashtag = '#code';
 
 
   const handleMoreclick = () => {
@@ -475,7 +477,12 @@ const Home = () => {
                           
 
                         </div>
-                   {shareButtons&&
+                       
+                   
+
+                      </div>
+
+                      {shareButtons[post._id]&&
                    <div className="share-buttons">
                   <FacebookShareButton 
                    url="https://amazon.com"
@@ -483,15 +490,37 @@ const Home = () => {
                    
                   quote="please share this post"
                   hashtag = "#code"
+                  
                   >
-                   <FacebookIcon/>  
+                   <FacebookIcon size={40} round={true}/>  
                   </FacebookShareButton>
-                  <WhatsappShareButton>
-    
+                  <WhatsappShareButton
+                  url="https://jagadeeshpavan.vercel.app/"
+                  >
+                    <WhatsappIcon size={40} round={true}/>
                   </WhatsappShareButton>
+                  <TwitterShareButton
+                  url="https://amazon.com"
+                  >
+                    <TwitterIcon size={40} round={true}/>
+                  </TwitterShareButton>
+                  <LinkedinShareButton
+                  url="https://amazon.com"
+                  >
+                  <LinkedinIcon size={40} round={true}/>
+                  </LinkedinShareButton>
+                  <EmailShareButton
+                  url="https://amazon.com"
+                  >
+                    <EmailIcon size={40} round={true}/>
+                  </EmailShareButton>
                    </div>
                    }
-                 </div>
+
+
+
+
+
                       {commentVisible?.[post._id] && (
                         <div className="comment-popup">
                           <div className="comment-section1">
