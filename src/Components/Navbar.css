@@ -1,0 +1,117 @@
+/* Navbar.css */
+
+.main {
+   
+    overflow: hidden;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: rgba(20, 10, 10, 0.699);
+    color: #fff;
+  }
+  
+  .main-Logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nf-logo {
+    width: 50px; /* Adjust based on your logo size */
+    height: auto;
+    margin-right: 10px;
+  }
+  
+  .newsfeed-name {
+    display: flex;
+    margin-left: 30vw;
+  }
+  
+  .newsfeed {
+    margin-left: 40px; /* Adjust as needed */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.8rem;
+  }
+  
+  .div-profile-icon {
+    display: flex;
+    margin-left: auto; /* Adjust to move the profile icon to the right */
+  }
+  
+  .button-profile-icon {
+    display: flex;
+    height: 10vh;
+    width: 10vw;
+    border: none;
+    background-color: transparent;
+    margin-right: -50%;
+  }
+  .profile-icon {
+    width: 4vw;
+    height: 6vh;
+    margin-top: 0.5%;
+    color: white;
+    margin-left: 16vw;
+    position: absolute;
+  }
+  
+   
+   
+  .signin-button2 {
+    margin-left: 1%; /* Adjust as needed */
+    margin-top: 5%;
+  }
+  
+  .signin-button,
+  .signup-button {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 15px;
+  }
+  
+.profile-button{
+  background-color: white;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 15px;
+    font-size: large;
+
+}
+
+
+
+
+  /* Media Query for smaller screens */
+  @media screen and (max-width: 768px) {
+    .newsfeed-name {
+      margin-left: 0; /* Reset margin for smaller screens */
+    }
+  
+    .newsfeed {
+      margin-left: 50px; /* Adjust for smaller screens */
+    }
+  
+    .div-profile-icon {
+       /* Adjust margin for profile icon */
+    }
+  
+    .profile-icon {
+      width: 30px; /* Adjust profile icon size */
+      height: 30px;
+       /* Adjust margin for profile icon */
+    }
+  
+    .signin-button1,
+    .signin-button2 {
+      margin-top: 10px; /* Adjust margin for buttons */
+    }
+  }
+  

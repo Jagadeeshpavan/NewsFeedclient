@@ -1,0 +1,294 @@
+.main-formsback{
+    height: 95vh;
+    width: 95vw;
+    background-color: white;
+    margin-top: 2.5vh;
+    margin-left: 2.5vw;
+    border-radius: 2vh;
+    -webkit-box-shadow: 0 0 5px 2px #fff;
+    -moz-box-shadow: 0 0 5px 2px #fff;
+    box-shadow: 0 0 5px 2px #757171;
+}
+.main-row{
+    display: flex;
+    flex-direction: row;
+}
+.main-forms1{
+    margin-top: 3.5vh;
+    padding-top: 3vh;
+    margin-left: 2vw;
+    height: 85vh;
+    width: 15vw;
+    background-color: rgba(170, 169, 169, 0.5);
+    border-radius: 2vh;
+}
+.info-flow{
+    text-align: center;
+    font-size: 3vh;
+    margin-bottom: 2vh;
+}
+.profibox{
+    height: 12vh;
+    width: 12vh;
+    border: solid skyblue;
+    border-radius: 12vh;
+    margin: auto;
+}
+.named{
+    margin-top: 1vh;
+    margin-left: 1vh;
+}
+.main-profile{
+    margin: auto;
+    height: 20vh;
+    width: 10vw;
+    background-color: white;
+    border-radius: 2vh;
+    padding-top: 1vh;
+}
+.name,.names{
+    text-align: center;
+}
+.name{
+    font-size: 2vh;
+}
+.dash-row{
+    display: flex;
+    flex-direction: row;
+    margin-top: 2vh;
+}
+.dashboard-icon1{
+    margin-left: 3vw;
+    margin-top: 0.4vh;
+    margin-right: 1vw;
+}
+.hr-line{
+    width: 12vw;
+    height: 0.1vh;
+    background-color: black;
+    color: black;
+    margin: auto;
+    margin-top: 1vh;
+}
+.notifications-row{
+    display: flex;
+    flex-direction: row;
+}
+.notifications{
+    margin-left: 1.5vw;
+    font-size: 2vh;
+    margin-top: 1vh;
+}
+.view-all{
+    font-size: 1.5vh;
+    margin-top: 1.2vh;
+    margin-left: 2.5vw;
+}
+.view-icon{
+    margin-top: 0.5vh;
+}
+.icon-color{
+    color: rgba(0, 0, 0, 0.233);
+}
+.posted-details{
+    display: flex;
+    flex-direction: row;
+}
+.profile-details1{
+    font-size: 1vh;
+    margin-top: 1vh;
+    margin-left: 1vw;
+}
+.out-let{
+    height: 5vh;
+    width: 12vw;
+   background-color: yellow;
+   border-radius: 1vh;
+   margin: auto;
+}
+.out-let2{
+    margin-top: vh;
+    height: 5vh;
+    width: 12vw;
+   background-color: red;
+   border-radius: 1vh;
+   margin: auto;
+}
+.out-let3{
+    margin-top: 1vh;
+    height: 5vh;
+    width: 12vw;
+   background-color: green;
+   border-radius: 1vh;
+   margin: auto;
+}
+.profile{
+    margin-left: 2vh;
+    margin-top: 0.7vh;
+}
+.margins{
+    margin-top: 1vh;
+}
+.logout-row{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1vh;
+}
+.icon-logout{
+    margin-left: 2vw;
+    margin-top: 0.4vh;
+    margin-right: 0.7vw;
+}
+.main-nametext{
+    margin-top: 6vh;
+    margin-left: 2vw;
+    font-weight: 1000;
+}
+.main-textlarge{
+    padding-top: 3vh;
+    margin-left: 2vw;
+    font-weight: 1000;
+    color: rgba(0, 0, 0, 0.719);
+}
+.main-boxtoupload{
+    width: 40vw;
+    height: 15vh;
+    border-radius: 2vh;
+    margin-left: 2vw;
+    margin-top: 4vh;
+    background-image: linear-gradient(to top right, rgb(153, 119, 248) , rgb(250, 149, 250),rgb(159, 159, 241), rgb(248, 110, 241),rgb(92, 92, 206),rgb(233, 84, 233),rgb(233, 27, 233),rgb(250, 110, 227),rgb(245, 168, 232));
+}
+.upload-button{
+    width: 12vw;
+    height: 7vh;
+    text-align: center;
+    background-color: white;
+    border: none;
+    border-radius: 1vh;
+    margin-top: 3vh;
+    margin-left: 3vw;
+}
+.main-uploadrow,.save{
+    display: flex;
+    flex-direction: row;
+}
+.add-new-text{
+    margin-top: 2vh;
+    margin-left: 4vw;
+    font-weight: 700;
+}
+.viedochange{
+    margin-left: 4vw;
+    margin-top: 2vh;
+}
+.choose{
+    height: 10vh;
+    width: 10vw;
+    border-radius: 2vh;
+    background-color: #b1b0b0;
+    padding-top: 7vh;
+}
+.displaycolumn1{
+    display: flex;
+    flex-direction: column;
+    height: 4vh;
+    width: 8vw;
+    border: solid 1px black;
+    border-radius: 1vh;
+    margin-left: 1vw;
+}
+.displaycolumn{
+    display: flex;
+    flex-direction: column;
+}
+.displayrowchange,.trendingrow{
+    display: flex;
+    flex-direction: row;
+}
+.hr1{
+    width: 4vw;
+    margin-left: 1vw;
+    height: 0.1vh;
+    margin-top: -0.6vh;
+   
+}
+.pixels{
+    font-size: 2vh;
+    margin-top: 1vh;
+    margin-bottom: 0.2vh;
+    margin-left: 1.5vw;
+}
+.sizeoficon{
+    height: 2vh;
+    width: 2vw;
+    margin-left: -0.5vw;
+}
+.classrow{
+    height: 10vh;
+    width: 10vw;
+    border: solid 1px;
+}
+.trendingrow{
+    height: 5vh;
+    width: 8vw;
+    border: solid 1px black;
+    border-radius: 1vh;
+    margin-top: 1vh;
+    margin-left: 1vw;
+}
+.iconheih{
+    margin-left: 1vw;
+    margin-top: 1vh;
+}
+.trendingtext{
+    margin-top: 0.5vh;
+    color: green;
+}
+.dupli{
+    color: green;
+}
+.head{
+    margin-left: 4vw;
+}
+.heading{
+    margin-top: 1vh;
+    font-weight: bold;
+}
+.input12{
+    width: 38vw;
+    height: 5vh;
+    border-radius: 0.5vh;
+    border: none;
+    outline-width: 0px;
+    background-color: #b1b0b0;
+    margin-left: 4vw;
+}
+.inputcontents{
+    width: 38vw;
+    height: 10vh;
+    border-radius: 0.5vh;
+    border: none;
+    outline-width: 0px;
+    background-color: #b1b0b0;
+    margin-left: 4vw;
+}
+.Subhead{
+    font-weight: 600;
+    margin-left: 4vw;
+}
+.savebutton{
+    border: none;
+    background-color: rgb(71, 71, 214);
+    margin-left: 33.6vw;
+    margin-top: 1vh;
+    color: white;
+    border-radius: 1vh;
+}
+.cancelbutton{
+    border: none;
+    background-color: rgb(214, 71, 71);
+    margin-left: 1vw;
+    margin-top: 1vh;
+    color: white;
+    border-radius: 1vh;
+}

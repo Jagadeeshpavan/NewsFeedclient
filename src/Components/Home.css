@@ -1,0 +1,176 @@
+.post {
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 15px;
+  }
+  
+  .post-div {
+    display: flex;
+     align-items: center;
+    margin-bottom: 10px; 
+    
+  }
+
+
+
+  .post-div1{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .pnt-div{
+    display: flex;
+    
+  }
+
+  .laxmi123 { 
+    margin: 0;
+    display: inline;
+    margin-left: 5px;
+    
+  }
+  .post-profile-pic {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .post-picture {
+    width: 100%;
+    max-height: 400px; 
+    object-fit: cover;
+    border-radius: 8px;
+    /* margin-bottom: 10px; */
+  }
+  
+  .post-video {
+    width: 100%;
+     height: 400px; 
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+
+
+  /* .post-div1 {
+    margin-bottom: 15px;
+  } */
+  
+  .post-div5 {
+    /* background-color: #f7f7f7; */
+    padding: 10px;
+    padding-top: 0%;
+    border-radius: 8px;
+    /* margin-top: 10px; */
+  }
+  
+  .post-p {
+    margin: 0;
+  }
+  
+  .post-button {
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5px;
+  }
+  
+  .post-div4 {
+    display: flex;
+    justify-content: space-evenly;
+    /* height: 350px;
+    overflow: auto; */
+    /* background-color: #f7f7f7; */
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .post-div3 {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .post-div12 {
+    display: flex;
+   flex-direction: column;
+    row-gap: 15px;
+    align-items: flex-start;
+    cursor: pointer;
+  }
+  
+  .post-like {
+    margin-right: 5px;
+  }
+  
+  .comment-section1 {
+    height: 350px;
+    overflow: auto;
+    margin-top: 10px;
+    border-radius: 4px;
+    padding: 15px;
+    background-color: #e1e1e1;
+  }
+  .comment-section1::-webkit-scrollbar{
+    width: 0px;
+  }
+  
+  /* .comment-section1 input {
+    width: calc(100% - 20px);
+    padding: 8px;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    margin: 20px;
+    margin-right: 10px;
+  } */
+   .comment-section2{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #e1e1e1;
+    padding: 20px 0px;
+    border-radius: 4px;
+    
+  } 
+   .comment-section2 input{
+    border-radius: 4px;
+    outline: none;
+    width: 100%;
+    padding: 15px;
+
+    
+   }
+   .comment-text{
+    margin-left: 65px;
+   }
+   .laxmi123{
+ 
+   }
+   .comment-buttons{
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+   }
+   .cedit-button,.cdelete-button,.creply-button{
+    
+    
+   }
+   .cldr{
+    display: flex;
+    column-gap: 40px;
+    margin-left: 65px;
+    margin-bottom: 20px;
+   }
+   .share-buttons{
+    margin-top: 10px;
+    display: flex;
+    column-gap: 10px;
+    justify-content: flex-end;
+    margin-right: 50px;
+   }

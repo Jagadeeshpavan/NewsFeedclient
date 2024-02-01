@@ -1,0 +1,92 @@
+
+.PostForm-Post{
+    height: 100%;
+    padding: 70px ;
+    
+     background: url(../Assets/alexander-grey-jYbKxinWQGk-unsplash.jpg); 
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    
+}
+
+
+.upload-form-container11{
+    max-width: 800px;
+    /* width: 500px; */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+    
+  }
+  
+  .Postform{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .Postform label {
+    margin-bottom: 8px;
+  }
+  
+  .Postform input,
+  .Postform textarea,
+  .Postform-button {
+    margin-bottom: 16px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .Postform-button{
+    background-color: blueviolet;
+    color: white;
+    cursor: pointer;
+    width: 100px;
+    /* position: relative;
+    left: 500px; */
+  }
+  
+  .Postform-button:hover {
+    background-color: rgb(129, 27, 224);
+    transform: scale(1.02);
+  }
+  .Postform-image{
+    width: 100%;
+  }
+  .upload-icon-label{
+    border: 1px solid #ccc;
+    padding: 20px 0;
+    background-color: #fff;
+    border-radius: 4px;
+  }
+  .Postform-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 70px;
+  }
+
+
+
+  @media only screen and (max-width: 600px) {
+    .PostForm-Post {
+        padding: 30px;
+    }
+
+    .upload-form-container11 {
+        max-width: 100%;
+        box-shadow: none;
+    }
+
+    .Postform-button {
+        left: 0;
+    }
+}

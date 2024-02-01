@@ -1,0 +1,109 @@
+.RegForm{
+    text-align: center;
+}
+.regform{
+    background-image: url('https://newsfeed.org/wp-content/uploads/mobile-smartphone-analytics2-ss-1920.jpg');
+    background-size: cover;
+}
+
+.Reg{
+     
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    
+}
+.flex231{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Reg1{
+    margin-top: 5%;
+    border: 1px solid #fff;
+    width: 30%;
+    /* background-image:linear-gradient(90deg,  #808080,#87ceeb); */
+    border-radius: 10px;
+    box-shadow: 4px 4px 40px black;
+    color:black;
+    padding-bottom: 20px;
+    /* line-height: 50px; */
+    background-color: #fff;
+    background: transparent;
+    margin-left: 60%;
+}
+
+.Reg-but{
+    margin: 3%;
+    width: 260px;
+    padding:10px 20px;
+    background-color:blue;
+    color:#fff;
+    border-radius: 5px;
+    font-size: large;
+
+}
+.Reg-but:hover{
+    transform: scale(1.05);
+}
+.Reg-input{
+    width: 250px;
+    padding: 12px;
+    margin-bottom: 15px;
+    background-color:#fff;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #ccc;
+    font-size: large;
+    
+}
+
+.Reg-input:focus{
+background-color: aliceblue;
+opacity: 1;
+transform: scale(1.05);
+}
+
+.login-link{
+    margin-left: 60px;
+    font-size: large;
+}
+/* .password-toggle{
+    position: absolute;
+    left: 248px;
+    bottom: 127px;
+    background: transparent;
+    border: none;
+
+    
+} */
+@media screen and (max-width: 768px) {
+    .Reg1 {
+      width: 50%;
+      /* margin-left: 10%; */
+      margin: auto;
+    }
+    .Reg{
+        height: 100%;
+    }
+    .flex231{
+        padding: 15px;
+    }
+  }
+  
+  @media screen and (max-width: 425px) {
+    .Reg1 {
+      width: 80%;
+      /* margin-left: 5%; */
+      margin: auto;
+    }
+    .Reg{
+        height: 100%;
+    }
+  }
