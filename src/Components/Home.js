@@ -150,6 +150,39 @@ const Home = () => {
       .catch((error) => console.error("Error liking media:", error));
   };
 
+  const handleCommentLike = (e, postId, commentId) => {
+    e.preventDefault();
+  
+    const token = localStorage.getItem("token");
+  
+    if (!token) {
+      toast.error("Please login to add items to the wishlist.");
+      window.location.href = "/login";
+      return;
+    }
+  
+    axios
+      .post(
+        `${BASE_URL}/api/commentlike/${postId}/${commentId}`,
+        null,
+        {
+          headers: {
+            "x-token": token,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        setAllPosts((prevPosts) => {
+          return prevPosts.map((post) =>
+            post._id === postId ? response.data : post
+          );
+        });
+      })
+      .catch((error) => console.error("Error liking comment:", error));
+  };
+  
+
   const handleDislike = (e, postId, userId) => {
     e.preventDefault();
 
@@ -657,7 +690,12 @@ const Home = () => {
                                             </p>
                                             <div className="cldr">
                                               <span>
-                                                <BiLike /> &nbsp;{commentLikes}
+                                                <BiLike 
+                                                  onClick={(e) =>
+                                                    handleCommentLike(e, post._id, post.Author.UserId)
+                                                  }
+                                                
+                                                /> &nbsp;{commentLikes}
                                               </span>
                                               <span>
                                                 <BiDislike /> &nbsp;
