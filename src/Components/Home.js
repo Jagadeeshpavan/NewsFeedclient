@@ -154,15 +154,15 @@ const Home = () => {
 
   const handleCommentLike = (e, postId, commentId) => {
     e.preventDefault();
-
+  
     const token = localStorage.getItem("token");
-
+  
     if (!token) {
       toast.error("Please login to add items to the wishlist.");
       window.location.href = "/login";
       return;
     }
-
+  
     axios
       .post(
         `${BASE_URL}/api/commentlike/${postId}/${commentId}`,
@@ -179,11 +179,14 @@ const Home = () => {
           return prevPosts.map((post) =>
             post._id === postId ? response.data : post
           );
-          
         });
       })
-      .catch((error) => console.error("Error liking comment:", error));
+      .catch((error) => {
+        console.error("Error liking comment:", error);
+        console.log("Server response:", error.response);
+      });
   };
+  
 
   
 
