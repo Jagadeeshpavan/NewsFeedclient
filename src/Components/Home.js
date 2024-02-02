@@ -518,7 +518,7 @@ const Home = () => {
                       {shareButtons[post._id]&&
                    <div className="share-buttons">
                   <FacebookShareButton 
-                   url="https://amazon.com"
+                   url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
 
                    
                   quote="please share this post"
@@ -528,22 +528,22 @@ const Home = () => {
                    <FacebookIcon size={40} round={true}/>  
                   </FacebookShareButton>
                   <WhatsappShareButton
-                  url="https://news-feedclient.vercel.app/"
+                   url={`https://news-feedclient.vercel.app/post/${post._id}`} 
                   >
                     <WhatsappIcon size={40} round={true}/>
                   </WhatsappShareButton>
                   <TwitterShareButton
-                  url="https://news-feedclient.vercel.app/"
+                  url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
                   >
                     <TwitterIcon size={40} round={true}/>
                   </TwitterShareButton>
                   <LinkedinShareButton
-                  url="https://news-feedclient.vercel.app/"
+                  url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
                   >
                   <LinkedinIcon size={40} round={true}/>
                   </LinkedinShareButton>
                   <EmailShareButton
-                  url="https://news-feedclient.vercel.app/"
+                  url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
                   >
                     <EmailIcon size={40} round={true}/>
                   </EmailShareButton>
