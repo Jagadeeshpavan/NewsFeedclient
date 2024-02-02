@@ -34,7 +34,7 @@ function App() {
                 element={<ForgotPassword />}
               />
        
-    {/* <Route path="/post/:postId" element={<MyPost />} />  */}
+     <Route path="/post/:postId" element={<MyPost />} />  
     </Routes>
     </Router>   
 
