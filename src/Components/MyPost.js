@@ -130,7 +130,9 @@ const MyPost = () => {
                   alt='img' /> */}
 
 
-{post.image && post.image.includes('video') ? (
+{post.type &&
+                        (post.type.toLowerCase() === "mp4" ||
+                          post.type.toLowerCase() === "mp3") ? (
             <video controls style={{width:'100%'}}>
               <source src={`${BASE_URL}${post.image}`} type="video/mp4" />
               Your browser does not support the video tag.
