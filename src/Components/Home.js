@@ -495,7 +495,7 @@ const Home = () => {
                    <FacebookIcon size={40} round={true}/>  
                   </FacebookShareButton>
                   <WhatsappShareButton
-                  url= 'http://localhost:3000/post/${post._id} '// Dynamic post URL
+                   url={`https://news-feedclient.vercel.app/post/${post._id}`} 
                   >
                     <WhatsappIcon size={40} round={true}/>
                   </WhatsappShareButton>
