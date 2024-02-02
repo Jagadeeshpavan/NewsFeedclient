@@ -702,11 +702,11 @@ const Home = () => {
                                                 <BiLike 
                                                 onClick={(e) => handleCommentLike(e, post._id, comment._id)}
                                                 
-                                                /> &nbsp;{commentLikes}
+                                                /> &nbsp;{comment.likes}
                                               </span>
                                               <span>
                                                 <BiDislike /> &nbsp;
-                                                {commentDislikes}
+                                                {comment.dislikes}
                                               </span>
                                               <span>
                                                 <BiCommentDetail />
