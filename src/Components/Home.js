@@ -16,6 +16,8 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import{FacebookShareButton, WhatsappShareButton,EmailShareButton,TwitterShareButton,
   FacebookIcon,LinkedinShareButton,WhatsappIcon,LinkedinIcon,EmailIcon,TwitterIcon,} from "react-share";
 import { BASE_URL } from '../Helper.js/Helper';
+import { Helmet } from 'react-helmet-async';
+
 
 const Home = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -352,7 +354,8 @@ const Home = () => {
 
   return (
     <>
-      <Navbar />
+
+   <Navbar />
       <div className="App">
         <div style={{ width: "75%", margin: "auto" }}>
           <header className="App-header">
