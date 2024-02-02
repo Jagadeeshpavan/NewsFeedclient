@@ -152,7 +152,7 @@ const Home = () => {
       .catch((error) => console.error("Error liking media:", error));
   };
 
-  const handleCommentLike = (e, postId, commentId) => {
+  const handleCommentLike = async (e, postId, commentId) => {
     e.preventDefault();
   
     const token = localStorage.getItem("token");
@@ -163,8 +163,8 @@ const Home = () => {
       return;
     }
   
-    axios
-      .post(
+    try {
+      const response = await axios.post(
         `${BASE_URL}/api/commentlike/${postId}/${commentId}`,
         null,
         {
@@ -172,20 +172,21 @@ const Home = () => {
             "x-token": token,
           },
         }
-      )
-      .then((response) => {
-        console.log(response.data);
-        setAllPosts((prevPosts) => {
-          return prevPosts.map((post) =>
-            post._id === postId ? response.data : post
-          );
-        });
-      })
-      .catch((error) => {
-        console.error("Error liking comment:", error);
-        console.log("Server response:", error.response);
+      );
+  
+      console.log("Server response:", response.data);
+  
+      setAllPosts((prevPosts) => {
+        return prevPosts.map((post) =>
+          post._id === postId ? response.data : post
+        );
       });
+    } catch (error) {
+      console.error("Error liking comment:", error);
+      console.log("Server response:", error.response);
+    }
   };
+  
   
 
   
