@@ -538,7 +538,7 @@ const Home = () => {
                   </FacebookShareButton>
                   <Link to={`/post/${post._id}`}>
                   <WhatsappShareButton
-                   
+                   url={`/post/${post._id}`} 
                   >
                     <WhatsappIcon size={40} round={true}/>
                   </WhatsappShareButton>
