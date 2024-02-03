@@ -537,11 +537,11 @@ const Home = () => {
                    <FacebookIcon size={40} round={true}/>  
                   </FacebookShareButton>
                   <Link to={`/post/${post._id}`}>
-                  
-                   
-                  
+                  <WhatsappShareButton
+                   url={`https://news-feedclient.vercel.app/post/${post._id}`} 
+                  >
                     <WhatsappIcon size={40} round={true}/>
-                  
+                  </WhatsappShareButton>
                   </Link>
                   <TwitterShareButton
                   url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
