@@ -538,7 +538,7 @@ const Home = () => {
                   </FacebookShareButton>
                   
                   <WhatsappShareButton
-                   url={`https://news-feedclient.vercel.app/post/${post._id}`} 
+                   url={`https://news-feedclient.vercel.app`} 
                   >
                    <Link to={`/post/${post._id}`}>
                     <WhatsappIcon size={40} round={true}/>
