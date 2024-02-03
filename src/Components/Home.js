@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import { Link } from "react-router-dom"
 import Navbar from "./Navbar";
 import axios from "axios";
 import { AiFillLike } from "react-icons/ai";
@@ -536,11 +536,13 @@ const Home = () => {
                   >
                    <FacebookIcon size={40} round={true}/>  
                   </FacebookShareButton>
+                  <Link to={`/post/${post._id}`}>
                   <WhatsappShareButton
                    url={`https://news-feedclient.vercel.app/post/${post._id}`} 
                   >
                     <WhatsappIcon size={40} round={true}/>
                   </WhatsappShareButton>
+                  </Link>
                   <TwitterShareButton
                   url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
                   >

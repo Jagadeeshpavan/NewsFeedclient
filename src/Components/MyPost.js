@@ -173,7 +173,7 @@ const MyPost = () => {
 
         <div className="post-div3" onClick={()=>handleDislike(post._id)}>
           <AiFillDislike className="post-like" />
-          <p style={{ margin: '0%', marginLeft: '5px' }}>{post.dislikes} Dislikes Hello</p>
+          <p style={{ margin: '0%', marginLeft: '5px' }}>{post.dislikes} Dislikes </p>
         </div>
 
         <div className="post-div3">
