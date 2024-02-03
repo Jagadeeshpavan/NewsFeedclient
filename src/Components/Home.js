@@ -540,9 +540,9 @@ const Home = () => {
                   <WhatsappShareButton
                    url={`https://news-feedclient.vercel.app/post/${post._id}`} 
                   >
-                   <Link to={`/post/${post._id}`}>
+                  
                     <WhatsappIcon size={40} round={true}/>
-                    </Link>
+                  
                   </WhatsappShareButton>
             
                   <TwitterShareButton
