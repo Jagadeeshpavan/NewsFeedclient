@@ -210,7 +210,7 @@ const MyPost = () => {
                   </FacebookShareButton>
                   
                   <WhatsappShareButton
-                   url='window.location.href'
+                   
                   >
                    <Link to={`/post/${post._id}`}>
                     <WhatsappIcon size={40} round={true}/>
