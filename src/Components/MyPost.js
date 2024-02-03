@@ -5,9 +5,13 @@ import { AiFillLike } from 'react-icons/ai';
 import { AiFillDislike } from "react-icons/ai";
 import { FaCommentAlt } from 'react-icons/fa';
 import { IoMdShare } from 'react-icons/io';
-import{useParams} from "react-router-dom";
+import{useParams,Link} from "react-router-dom";
 import axios from 'axios';
 import { BASE_URL } from '../Helper.js/Helper';
+import{FacebookShareButton, WhatsappShareButton,EmailShareButton,TwitterShareButton,
+  FacebookIcon,LinkedinShareButton,WhatsappIcon,LinkedinIcon,EmailIcon,TwitterIcon,} from "react-share";
+
+
 
 const MyPost = () => {
   const { postId } = useParams();
@@ -19,8 +23,18 @@ const MyPost = () => {
   const [post, setPost] = useState({});
   
   const [token] = useState(localStorage.getItem('token'));
+  const [shareButtons, setShareButtons] = useState(false);
 
 
+
+
+
+  const handleShareClick = (postId) => {
+    setShareButtons((prevShareButtons) => ({
+   ...prevShareButtons,
+   [postId]:!prevShareButtons[postId]
+    }));
+  };
 
   const handleLike = () => {
     
@@ -176,11 +190,53 @@ const MyPost = () => {
           <p style={{ margin: '0%', marginLeft: '5px' }}>{post.dislikes} Dislikes </p>
         </div>
 
-        <div className="post-div3">
+        <div className="post-div3"
+        onClick={(e) => handleShareClick(post._id)}>
           <IoMdShare className="post-like" />
           <p style={{ margin: '0%', marginLeft: '5px' }}>Share</p>
         </div>
       </div>
+      {shareButtons[post._id]&&
+                   <div className="share-buttons">
+                  <FacebookShareButton 
+                   url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
+
+                   
+                  quote="please share this post"
+                  hashtag = "#code"
+                  
+                  >
+                   <FacebookIcon size={40} round={true}/>  
+                  </FacebookShareButton>
+                  
+                  <WhatsappShareButton
+                   url={`https://news-feedclient.vercel.app/post/${post._id}`} 
+                  >
+                   <Link to={`/post/${post._id}`}>
+                    <WhatsappIcon size={40} round={true}/>
+                    </Link>
+                  </WhatsappShareButton>
+            
+                  <TwitterShareButton
+                  url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
+                  >
+                    <TwitterIcon size={40} round={true}/>
+                  </TwitterShareButton>
+                  <LinkedinShareButton
+                  url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
+                  >
+                  <LinkedinIcon size={40} round={true}/>
+                  </LinkedinShareButton>
+                  <EmailShareButton
+                  url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
+                  >
+                    <EmailIcon size={40} round={true}/>
+                  </EmailShareButton>
+                   </div>
+                   }
+
+
+
       <div className="post-div3" style={{margin:'15px 35px',paddingBottom:'10px',borderBottom:'1px solid #ddd'}} onClick={handleCommentClick}>
           <FaCommentAlt className="post-like" />
           <p style={{ margin: '0%', marginLeft: '5px' }}>Comment</p>
