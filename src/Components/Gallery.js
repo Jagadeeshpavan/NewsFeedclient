@@ -37,24 +37,24 @@ const [posts, setPosts] = useState([]);
 
 
         <header className="App-header" style={{ maxWidth: '75%', margin: 'auto' }}>
-          <h1>Gallery</h1>
+           <h1>Gallery</h1> 
         </header>
         <div className="feed-container11" >
           {posts.map((post) => (
             <div className="card1" key={post.id}>
               <p className="card1-timestamp">
-                  Posted {calculateTimeDifference(post.createdAt)}
+                  {calculateTimeDifference(post.createdAt)}
                   </p>
               <Link style={{color:'black',textDecoration:'none'}} to={`/post/${post._id}`}>
 
-              <div className="post-div1">
+              <div className="gallery-div">
                       {(post.type && post.type.toLowerCase() === 'mp4') || (post.type && post.type.toLowerCase() === 'mp3') ? (
-                        <video controls className='post-video'style={{height:'152px',objectFit:"inherit",marginBottom:'0%'}}>
+                        <video controls className='post-video' style={{height:'165px',objectFit:"contain",marginBottom:'0%'}}>
                           <source src={`${BASE_URL}${post.image}`} />
                           Your browser does not support the video tag.
                         </video>
                       ) : (
-                        <img className="post-picture"
+                        <img   className ='post-picture' style={{height:'165px',objectFit:"contain",marginBottom:'0%'}}
                           src={`${BASE_URL}${post.image}`}
                           alt="img" />
                       )}

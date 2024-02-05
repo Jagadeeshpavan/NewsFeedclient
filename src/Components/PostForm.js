@@ -96,10 +96,10 @@ return (
 
             {user ? (
         <>
-          <h3 style={{ marginBottom: '0%' }}>{`${user.firstName} ${user.lastName}`}</h3>
+          <h2 style={{ marginBottom: '0%' }}>{`${user.firstName} ${user.lastName}`}</h2>
           {/* <p style={{ marginTop: '0%' }}>@UserName</p> */}
           <p style={{ marginTop: '10px', fontSize: '12px', color: '#777' }}>
-            Posted on: {getCurrentTimestamp()}
+            {/* Posted on: {getCurrentTimestamp()} */}
           </p>
         </>
       ) : (

@@ -6,7 +6,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { FaCloudUploadAlt } from 'react-icons/fa';
-import MainGallery from './Gallery';
+import Gallery from './Gallery';
 import Profile from './Profile';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -140,7 +140,7 @@ export default function BasicTabs() {
       </Box>
       <CustomTabPanel value={value} index={0}>
         <div className="upload-form-container11">
-          <h1>Upload New Post</h1>
+          <h2>Add Post</h2>
           <form className='Postform'>
             <label htmlFor="title">Title: </label>
             <input
@@ -199,7 +199,7 @@ export default function BasicTabs() {
         </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <MainGallery />
+        <Gallery />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
       <Profile1 />
