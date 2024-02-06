@@ -102,15 +102,13 @@ const MyPost = () => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/gallery`, {
-        headers: {
-          "x-token": token,
-        },
-      })
+      .get(`${BASE_URL}/api/allPosts`
+        
+      )
       .then((res) => {
         console.log(res.data);
         // Assuming res.data.user.post is an array of posts
-        const allPosts = res.data.posts;
+        const allPosts = res.data;
   
         // Filter the posts based on the postId
         const selectedPost = allPosts.filter((post) => post._id === postId);
