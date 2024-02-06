@@ -102,7 +102,7 @@ const Profile1 = () => {
               {editing && (
                 <label>
                   {/* <IoMdCloudDownload /> */}
-                  Change picture
+                  Upload New Photo
                   <input type="file" accept="image/*"style={{display:'none'}} name="profilePicture" onChange={handleFileChange} />
                 </label>
               )}
@@ -117,7 +117,8 @@ const Profile1 = () => {
                     
                     <input className='texting' style={{width:'60%'}} type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} />
                   ) : (
-                    <span className='span1'>{formData.firstName}  {formData.lastName}</span>
+                    <input className='span1' value={formData.firstName + ' ' + formData.lastName} />
+
                   )}
                 </label>
                 {editing && (

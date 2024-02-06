@@ -19,14 +19,18 @@
   
   .profile-info {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    row-gap: 30px;
   }
   
    .profile-picture {
    display: flex;
-   margin-left: 30px;
+   
    flex-direction: column;
-   column-gap: 15px;
+   /* column-gap: 15px; */
+   background-color: #4caf50;
+   justify-content: center;
+   align-items: center;
   } 
     
   .profile-picture img {
@@ -39,11 +43,11 @@
   
   .profile-picture label {
     
-    width: 78%;
+    width: max-content;
     text-align: center;
-     margin-left: 50px;
-     margin-top: 10px;
-    transform: translateX(-50%);
+     /* margin-left: 50px; */
+     /* margin-top: 10px; */
+    /* transform: translateX(-50%); */
     background-color: #4caf50;
     color: white;
     padding: 5px 5px;
