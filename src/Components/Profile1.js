@@ -89,76 +89,104 @@ const Profile1 = () => {
   return (
     <form onSubmit={handleEditSave}>
       <div className="profile-container">
-        <h2 className='personal-information'>Personal Information</h2>
-       
+      {editing ? (
+        <h2 className='personal-information'>Edit Profile</h2>
+        ) : (
+          <h2 className='personal-information'>Profile</h2>
+          )}
         <div className="profile-form">
           <div className="profile-info">
           <div className='profile-picture'>
           <img style={{
-                width:"100px",
-                height:'100px',
+                width:"150px",
+                height:'150px',
                 borderRadius:'50%'
             }} src={`${BASE_URL}${formData.profilePicture}`}  alt='img' />
               {editing && (
+                <div>
                 <label>
-                  {/* <IoMdCloudDownload /> */}
+                
                   Upload New Photo
+                  
                   <input type="file" accept="image/*"style={{display:'none'}} name="profilePicture" onChange={handleFileChange} />
                 </label>
+                </div>
               )}
+              
             </div>
 
             <div className="profile-details">
               <div className="details">
-                <div style={{display:'flex',alignContent:'center'}}>
-                <label className='label1'>
-                {editing ? 'First Name:' : 'Full Name:'}
+              <div className={editing ? 'flex12' : 'flex'}>
+                  
+                
+                  <div className='flex23'>
+                <p class="label-width" >
+                First Name:
+                </p>
                   {editing ? (
                     
-                    <input className='texting' style={{width:'60%'}} type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} />
+                    <input  className='input-edit' type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} />
                   ) : (
-                    <input className='span1' value={formData.firstName + ' ' + formData.lastName} />
-
-                  )}
-                </label>
-                {editing && (
-      <label className='label1'>
-        Last Name:
-        <input className='texting' style={{width:'60%'}}  type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} />
-      </label>
-    )}
+                    <span className='input-edit12'>{formData.firstName}</span>)}
+                  
+                  </div>
+                
+               
+       <div className='flex23'>
+       <p class="label-width" >
+         Last Name:
+       </p>
+       {editing ? (
+       
+       <input  className='input-edit'  type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} />
+       
+       ) : (
+        <span className='input-edit12'>{formData.lastName}</span>)}
+       </div>
+    
     </div>
-                <label className='label1'>
+    <div className={editing ? 'flex12' : 'flex'}>
+
+    <div className='flex23'>
+                <p class="label-width">
                   Email:
+                  </p>
                   {editing ? (
-                    <input className='texting' style={{width:'88%'}} type="text" name="email" value={formData.email} onChange={handleInputChange} />
+                    <input   className='input-edit' type="text" name="email" value={formData.email} onChange={handleInputChange} />
                   ) : (
-                    <span className='span1'>{formData.email}</span>
+                    <span className='input-edit12'>{formData.email}</span>
                   )}
-                </label>
-                <label className='label1'>
+                
+                </div>
+                <div className='flex23'>
+                <p class="label-width">
                   Phone:
+                  </p>
                   {editing ? (
-                    <input className='texting' style={{width:'87%'}} name="phone" value={formData.phone} onChange={handleInputChange} />
+                    <input  name="phone" className='input-edit' value={formData.phone} onChange={handleInputChange} />
                   ) : (
-                    <p className='span1'>{formData.phone}</p>
+                    <p className='input-edit12'>{formData.phone}</p>
                   )}
-                </label>
+                </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         {editing ? (
-          <>
-            <button className='save-btn' type="submit" >Save</button>
+          <div className='profile-btns'>
+            <button className='save-btn' type="submit" >Update</button>
             <button className="cancel-btn" type="button" onClick={handleCancelClick}>
               Cancel
             </button>
-          </>
+        </div>
         ) : (
+          
           <button className='edit-btn' type="button" onClick={handleEditClick}>
             Edit
           </button>
+          
         )}
       </div>
     </form>
