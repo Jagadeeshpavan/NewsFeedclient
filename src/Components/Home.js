@@ -36,7 +36,7 @@ const Home = () => {
   const [loginUser, setLoginUser] = useState("");
   const [shareButtons, setShareButtons] = useState(false);
   const commentSectionRef = useRef(null);
-  const [allComments, setAllComments] = useState([]);
+  // const [allComments, setAllComments] = useState([]);
 
   const [token] = useState(localStorage.getItem("token"));
   // const currentPageUrl = window.location.href;
@@ -62,10 +62,10 @@ const Home = () => {
     }));
   };
 
-  const handleReplyClick = (postId) => {
+  const handleReplyClick = (commentId) => {
     setReplyVisible((prevVisible) => ({
       ...prevVisible,
-      [postId]: !prevVisible[postId],
+      [commentId]: !prevVisible[commentId],
     }));
   }
 
@@ -149,7 +149,7 @@ const Home = () => {
       }
 
       const response = await axios.post(
-        `http://localhost:5000/api/replay/${postId}/${commentId}`,
+        `${BASE_URL}/api/replay/${postId}/${commentId}`,
         {
           text: reply,
         },
@@ -165,16 +165,16 @@ const Home = () => {
       setReplyVisible(null);
 
 
-      setAllComments((prevComments) =>
-        prevComments.map((comment) =>
-          comment._id === commentId
-            ? {
-              ...comment,
-              replays: response.data.replays,
-            }
-            : comment
-        )
-      );
+      // setAllComments((prevComments) =>
+      //   prevComments.map((comment) =>
+      //     comment._id === commentId
+      //       ? {
+      //         ...comment,
+      //         replays: response.data.replays,
+      //       }
+      //       : comment
+      //   )
+      // );
 
       toast.success("Replay submitted successfully!");
     } catch (error) {
@@ -259,6 +259,41 @@ const Home = () => {
   
   
 
+  const handleCommentDislike = async (e, postId, commentId) => {
+    e.preventDefault();
+  
+    const token = localStorage.getItem("token");
+  
+    if (!token) {
+      toast.error("Please login to add items to the wishlist.");
+      window.location.href = "/login";
+      return;
+    }
+  
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/api/commentdislike/${postId}/${commentId}`,
+        null,
+        {
+          headers: {
+            "x-token": token,
+          },
+        }
+      );
+  
+      console.log("Server response:", response.data);
+  
+      setAllPosts((prevPosts) => {
+        return prevPosts.map((post) =>
+          post._id === postId ? response.data : post
+        );
+      });
+    } catch (error) {
+      console.error("Error liking comment:", error);
+      console.log("Server response:", error.response);
+    }
+  };
+  
   
 
   const handleDislike = (e, postId, userId) => {
@@ -653,7 +688,7 @@ const Home = () => {
                             >
                               <input
                                 type="text"
-                                placeholder="Write a comment..."
+                                placeholder="Add a comment..."
                                 value={isEditing ? comment[post._id] : comment}
                                 onChange={(e) =>
                                   isEditing
@@ -779,17 +814,20 @@ const Home = () => {
                                                 /> &nbsp;{comment.likes}
                                               </span>
                                               <span>
-                                                <BiDislike /> &nbsp;
+                                                <BiDislike 
+                                                 onClick={(e) => handleCommentDislike(e, post._id, comment._id)}/> &nbsp;
                                                 {comment.dislikes}
                                               </span>
                                               <span>
                                                 <BiCommentDetail 
-                                                onClick={() => handleReplyClick(post._id)}/>
+                                                onClick={() => handleReplyClick(comment._id)}/>
+                                                &nbsp;{comment.replays ? comment.replays.length : 0}
                                               </span>
-                                              {replyVisible[post._id] && (
+                                              
+                                              {replyVisible[comment._id] && (
                                         <div className="replay-popup">
                                           <div className="replay-section1">
-                                            <h4> Replays: {post.replays ? post.replays.length : 0} </h4>                                            <div className="replay-section2">
+                                            <h4> Replies: {comment.replays ? comment.replays.length : 0} </h4>                                            <div className="replay-section2">
                                               <input
                                                 type="text"
                                                 placeholder="Write a replay..."
@@ -807,29 +845,61 @@ const Home = () => {
 
                                             </div>
                                             <div>
-                                            {post.comments && Array.isArray(post.comments) && post.comments.map((comment) => (
+                                            {
                                               comment.replays && comment.replays.map((replay) => {
-                                                const replayedUser = allUsers.find((user) => user._id === replay.postedBy);
+                                                const replayedUser = allUsers.find((user) => user._id === replay.replyedBy);
                                           
                                                 // Check if replayedUser is defined and has a profile picture before rendering
-                                                if (replayedUser && (replayedUser.profilePicture === 'null' && replayedUser.profilePicture === null)) {
+                                                if (replayedUser) {
                                                   return (
                                                     <div key={replay._id} className="replay" style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
                                                       <div style={{ width: '300px' }}>
                                                         <div className="post-div" style={{ marginBottom: '0%' }}>
+                                                        {replayedUser.profilePicture ===
+                                              "null" ||
+                                            replayedUser.profilePicture ===
+                                              null ? (
+                                              <div
+                                                className="post-profile-pic"
+                                                style={{
+                                                  width: "40px",
+                                                  height: "40px",
+                                                  borderRadius: "50%",
+                                                  backgroundColor:
+                                                    generateBackgroundColor(
+                                                      replayedUser
+                                                    ),
+                                                  display: "flex",
+                                                  justifyContent: "center",
+                                                  alignItems: "center",
+                                                }}
+                                              >
+                                                <span
+                                                  style={{
+                                                    fontSize: "20px",
+                                                    color: "#",
+                                                  }}
+                                                >
+                                                  {replayedUser.firstName
+                                                    .charAt(0)
+                                                    .toUpperCase()}
+                                                </span>
+                                              </div>
+                                            ) : (
                                                           <img
                                                             className="post-profile-pic"
-                                                            src={`http://localhost:5000${replayedUser.profilePicture}`}
+                                                            src={`${BASE_URL}${replayedUser.profilePicture}`}
                                                             alt="User Profile"
                                                             style={{ width: "40px", height: "40px" }}
                                                           />
-                                                          <h3 style={{ margin: "0%", marginLeft: "15px" }}>
+                                            )}
+                                                          <h4 style={{ margin: "0%", marginLeft: "15px" }}>
                                                             {`${replayedUser.firstName} ${replayedUser.lastName}`}
-                                                          </h3>
+                                                          </h4>
                                                         </div>
-                                                        <p className="card1-timestamp" style={{ fontSize: 'smaller', margin: '0%', marginLeft: '67px' }}>
-                                                          Posted {calculateTimeDifference(post.createdAt)}
-                                                        </p>
+                                                        {/* <p className="card1-timestamp" style={{ fontSize: 'smaller', margin: '0%', marginLeft: '67px' }}>
+                                                          Posted {calculateTimeDifference(comment.createdAt)}
+                                                        </p> */}
                                                         <p className="replay-text">{replay.text}</p>
                                                       </div>
                                                     </div>
@@ -839,18 +909,18 @@ const Home = () => {
                                                     <div key={replay._id} className="replay">
                                                       <p className="replay-text">{replay.text}</p>
                                                       <div className="post-div3" >
-                                                      <MdReply className="post-like" />
-                                                      <p style={{ margin: "0%", marginLeft: "5px" }}>
-                                                        {" "}
-                                                        {post.replays ? post.replays.length : ""} replays{" "}
-                                                      </p>
+                                                      
+                                                    
+                                                
+                                                
+                                                      
                                                     </div>
                                                     </div>
                                                     
                                                   );
                                                 }
                                               })
-                                            ))}
+                                            }
                                           </div>
                                           
                                           </div>
@@ -889,10 +959,10 @@ const Home = () => {
                                                   >
                                                     Delete
                                                   </button>
-                                                  <button className="creply-button">Reply</button>
+                                                  {/* <button className="creply-button">Reply</button> */}
                                                 </>
                                               ) : (
-                                                <button className="creply-button">Reply</button>
+                                                <button className="creply-button">Report</button>
                                               )}
                                             </div>
                                           )}
