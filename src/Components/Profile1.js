@@ -4,6 +4,7 @@ import './Profile1.css';
 import postimage from '../Assets/backgroung.webp'
 // import { IoMdCloudDownload } from "react-icons/io";
 import { BASE_URL } from '../Helper.js/Helper';
+import { FaEdit } from "react-icons/fa";
 
 const Profile1 = () => {
   const [editing, setEditing] = useState(false);
@@ -106,7 +107,7 @@ const Profile1 = () => {
                 <div>
                 <label>
                 
-                  Upload New Photo
+                <FaEdit />
                   
                   <input type="file" accept="image/*"style={{display:'none'}} name="profilePicture" onChange={handleFileChange} />
                 </label>
@@ -164,9 +165,9 @@ const Profile1 = () => {
                   Phone:
                   </p>
                   {editing ? (
-                    <input  name="phone" className='input-edit' value={formData.phone} onChange={handleInputChange} />
+                    <input  name="phone" type='text' className='input-edit' value={formData.phone} onChange={handleInputChange} />
                   ) : (
-                    <p className='input-edit12'>{formData.phone}</p>
+                    <span className='input-edit12'>{formData.phone}</span>
                   )}
                 </div>
                 </div>
