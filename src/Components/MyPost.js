@@ -21,10 +21,10 @@ const MyPost = () => {
   const [moreVisible, setMoreVisible] = useState(false)
   const [comment, setComment] = useState('');
   const [post, setPost] = useState({});
-  
+  const [userId, setUserId] = useState('');
   const [token] = useState(localStorage.getItem('token'));
   const [shareButtons, setShareButtons] = useState(false);
-
+  const [allUsers, setAllUsers] = useState([]);
 
 
 
@@ -116,6 +116,7 @@ const MyPost = () => {
         // If a post with the given postId is found, set it as the selected post
         if (selectedPost.length > 0) {
           setPost(selectedPost[0]);
+          setUserId(post.Author.UserId)
         } else {
           console.log("Post not found");
           // Handle the case where the post with the given ID is not found
@@ -127,10 +128,26 @@ const MyPost = () => {
       });
   }, [token, postId, setPost]);
   
+  useEffect(() => {
+   
+
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/allUsers`);
+        const responseData = response.data;
+        console.log(responseData);
+        setAllUsers(responseData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    
+    fetchUsers();
+  }, []);
 
 
-
-
+  const user = allUsers.find((user) => user._id === userId);
 
 
   return (
@@ -159,10 +176,12 @@ const MyPost = () => {
             </div>
             <div className='postdiv'>
             <div className="post-div11">
+            {user && (
                 <div style={{display:'inline-flex',alignItems:'center'}}>
-                    <img className="post-profile-pic" src={img} alt="img" />
-                    <h2 style={{ margin: '0%', marginLeft: '15px' }}>UserName</h2>
+                    <img className="post-profile-pic" src={`${BASE_URL}${user.profilePicture}`} alt="img" />
+                    <h2 style={{ margin: '0%', marginLeft: '15px' }}>{`${user.firstName} ${user.lastName}`}</h2>
                     </div>
+            )}
                     <h3 style={{padding:'10px',margin:'0%',marginTop:'10px'}}>{post.title}</h3>
                     {moreVisible && (
                 <div className='post-div5' >
