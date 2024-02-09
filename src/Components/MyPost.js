@@ -116,7 +116,7 @@ const MyPost = () => {
         // If a post with the given postId is found, set it as the selected post
         if (selectedPost.length > 0) {
           setPost(selectedPost[0]);
-          setUserId(post.Author.UserId)
+          setUserId(selectedPost[0].Author.UserId)
         } else {
           console.log("Post not found");
           // Handle the case where the post with the given ID is not found
