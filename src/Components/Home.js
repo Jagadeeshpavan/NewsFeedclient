@@ -18,6 +18,7 @@ import{FacebookShareButton, WhatsappShareButton,EmailShareButton,TwitterShareBut
   FacebookIcon,LinkedinShareButton,WhatsappIcon,LinkedinIcon,EmailIcon,TwitterIcon,} from "react-share";
 import { BASE_URL } from '../Helper.js/Helper';
 import { Helmet } from 'react-helmet-async';
+import { MdOutlineViewSidebar } from "react-icons/md";
 
 
 const Home = () => {
@@ -162,7 +163,7 @@ const Home = () => {
 
       console.log("Replay submitted:", response.data);
       setReply("");
-      setReplyVisible('');
+      
       setAllPosts((prevPosts) => {
         return prevPosts.map((post) =>
           post._id === postId ? response.data : post
@@ -619,7 +620,19 @@ const Home = () => {
 
                         </div>
                        
-                   
+                        <div
+                          className="post-div3"
+                          onClick={(e) =>
+                            handleDislike(e, post._id, post.Author.UserId)
+                          }
+                        >
+                          <MdOutlineViewSidebar className="post-like" />
+                          <p style={{ margin: "0%", marginLeft: "5px" }}>
+                            {post.views} Views
+                          </p>
+                        </div>
+
+
 
                       </div>
 
