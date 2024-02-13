@@ -534,7 +534,7 @@ const Home = () => {
                             <source
                               src={`${BASE_URL}${post.image}`}
                             />
-                            Your browser does not support the video tag.
+                            Your browser does not support video tag.
                           </video>
                         ) : (
                           <img
