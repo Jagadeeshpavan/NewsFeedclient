@@ -162,20 +162,14 @@ const Home = () => {
 
       console.log("Replay submitted:", response.data);
       setReply("");
-      setReplyVisible(null);
+      setReplyVisible('');
+      setAllPosts((prevPosts) => {
+        return prevPosts.map((post) =>
+          post._id === postId ? response.data : post
+        );
+      });
 
-
-      // setAllComments((prevComments) =>
-      //   prevComments.map((comment) =>
-      //     comment._id === commentId
-      //       ? {
-      //         ...comment,
-      //         replays: response.data.replays,
-      //       }
-      //       : comment
-      //   )
-      // );
-
+      
       toast.success("Replay submitted successfully!");
     } catch (error) {
       console.error("Error submitting replay:", error);
@@ -723,7 +717,7 @@ const Home = () => {
                             </div>
                             <div>
                               {Array.isArray(post.comments) &&
-                                post.comments.map((comment) => {
+                                post.comments.slice().reverse().map((comment) => {
                                   const commentedUser = allUsers.find(
                                     (user) => user._id === comment.postedBy
                                   );
@@ -821,7 +815,7 @@ const Home = () => {
                                               <span>
                                                 <BiCommentDetail 
                                                 onClick={() => handleReplyClick(comment._id)}/>
-                                                &nbsp;{comment.replays ? comment.replays.length : 0}
+                                                &nbsp;{comment && comment.replays ? comment.replays.length : 0}
                                               </span>
                                               
                                               {replyVisible[comment._id] && (
@@ -846,7 +840,7 @@ const Home = () => {
                                             </div>
                                             <div>
                                             {
-                                              comment.replays && comment.replays.map((replay) => {
+                                              comment.replays && comment.replays.slice().reverse().map((replay) => {
                                                 const replayedUser = allUsers.find((user) => user._id === replay.replyedBy);
                                           
                                                 // Check if replayedUser is defined and has a profile picture before rendering
