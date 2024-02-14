@@ -19,7 +19,7 @@ import{FacebookShareButton, WhatsappShareButton,EmailShareButton,TwitterShareBut
 import { BASE_URL } from '../Helper.js/Helper';
 import { Helmet } from 'react-helmet-async';
 import { MdOutlineViewSidebar } from "react-icons/md";
-
+import ReactPlayer from 'react-player'
 
 const Home = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -40,6 +40,8 @@ const Home = () => {
   // const [allComments, setAllComments] = useState([]);
 
   const [token] = useState(localStorage.getItem("token"));
+  const [playingStates, setPlayingStates] = useState({});
+
   // const currentPageUrl = window.location.href;
 
   useEffect(() => {
@@ -95,48 +97,90 @@ const Home = () => {
   
   // };
 
-  const handleMoreClick = async (e, postId) => {
-    setMoreVisible(moreVisible);
-    e.preventDefault();
+  // const handleMoreClick = async (e, postId) => {
+  //   setMoreVisible(moreVisible);
+  //   e.preventDefault();
 
+  //   try {
+  //     const token = localStorage.getItem("token");
+
+  //     if (!token) {
+  //       toast.error("Please login to submit a replay.");
+  //       window.location.href = "/login";
+  //       return; // Stop further execution if token is missing
+  //     }
+
+  //     const response = await axios.post(
+  //       `${BASE_URL}/api/viewCount/${postId}`,
+       
+  //       {
+  //         headers: {
+  //           "x-token": token,
+  //         },
+  //       }
+  //     );
+
+  //     console.log("view submitted:", response.data);
+      
+      
+  //     setAllPosts((prevPosts) => {
+  //       return prevPosts.map((post) =>
+  //         post._id === postId ? response.data : post
+  //       );
+  //     });
+
+      
+  //     toast.success("view submitted successfully!");
+  //   } catch (error) {
+  //     console.error("Error submitting view:", error);
+  //     toast.error("Error submitting view. Please try again.");
+  //   }
+  // };
+
+
+  const handleMoreClick = async (e, postId) => {
+    
+    setPlayingStates(prevStates => ({
+      ...prevStates,
+      [postId]: !prevStates[postId]
+    }));
+    setMoreVisible(moreVisible);
+
+   
     try {
       const token = localStorage.getItem("token");
-
+  
       if (!token) {
-        toast.error("Please login to submit a replay.");
+        toast.error("Please login to submit a reply.");
         window.location.href = "/login";
         return; // Stop further execution if token is missing
       }
-
+  
       const response = await axios.post(
         `${BASE_URL}/api/viewCount/${postId}`,
-       
+        {}, // Empty request body
         {
           headers: {
             "x-token": token,
           },
         }
       );
-
+  
       console.log("view submitted:", response.data);
-      
       
       setAllPosts((prevPosts) => {
         return prevPosts.map((post) =>
           post._id === postId ? response.data : post
         );
       });
-
-      
+  
       toast.success("view submitted successfully!");
     } catch (error) {
       console.error("Error submitting view:", error);
       toast.error("Error submitting view. Please try again.");
     }
   };
-
-
-
+  
 
 
 
@@ -162,7 +206,7 @@ const Home = () => {
 
   const handleCommentSubmit = async (e, postId) => {
     e.preventDefault();
-
+    console.log(postId);
     try {
       const token = localStorage.getItem("token");
 
@@ -594,12 +638,22 @@ const Home = () => {
                         {post.type &&
                         (post.type.toLowerCase() === "mp4" ||
                           post.type.toLowerCase() === "mp3") ? (
-                          <video controls className="post-video" onClick={(e) => handleMoreClick(e,post._id)}> 
-                            <source
-                              src={`${BASE_URL}${post.image}`}
-                            />
-                            Your browser does not support video tag.
-                          </video>
+                          // <video controls className="post-video" > 
+                          //   <source onClick={(e) => handleMoreClick(e,post._id)}
+                          //     src={`${BASE_URL}${post.image}`}
+                          //   />
+                          //   Your browser does not support video tag.
+                          // </video>
+                          <ReactPlayer
+                          url={`${BASE_URL}${post.image}`}
+                          controls={false}
+                          playing={playingStates[post.id]}
+                          className="post-video"
+                          onClick={(e) => handleMoreClick(e,post._id)}
+                        />
+
+
+
                         ) : (
                           <img
                             className="post-picture"
@@ -629,7 +683,7 @@ const Home = () => {
                             <p>{post.content.substring(0, 200)}</p>
                             <button
                               className="post-button"
-                              onClick={(e)=>handleMoreClick(e,post._Id)}
+                              onClick={(e)=>handleMoreClick(e,post._id)}
                             >
                               Show More
                             </button>
