@@ -96,6 +96,7 @@ const Home = () => {
   // };
 
   const handleMoreClick = async (e, postId) => {
+    setMoreVisible(!moreVisible);
     e.preventDefault();
 
     try {
@@ -118,7 +119,7 @@ const Home = () => {
       );
 
       console.log("view submitted:", response.data);
-      setReply("");
+      
       
       setAllPosts((prevPosts) => {
         return prevPosts.map((post) =>
@@ -617,7 +618,7 @@ const Home = () => {
                             <p className="post-p">{post.content}</p>
                             <button
                               className="post-button"
-                              onClick={handleMoreClick}
+                              onClick={()=>handleMoreClick()}
                             >
                               Show Less
                             </button>
