@@ -83,9 +83,72 @@ const Home = () => {
     setReply(e.target.value);
   };
 
-  const handleMoreclick = () => {
-    setMoreVisible(!moreVisible);
+  // const handleMoreclick = async(postId) => {
+  //   setMoreVisible(!moreVisible);
+  //   try {
+  //     await axios.post(`${BASE_URL}/api/viewCount/${postId}`);
+     
+  //   } catch (error) {
+  //     console.error("Error incrementing view count:", error);
+      
+  //   }
+  
+  // };
+
+  const handleMoreClick = async (e, postId) => {
+    e.preventDefault();
+
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        toast.error("Please login to submit a replay.");
+        window.location.href = "/login";
+        return; // Stop further execution if token is missing
+      }
+
+      const response = await axios.post(
+        `${BASE_URL}/api/viewCount/${postId}`,
+       
+        {
+          headers: {
+            "x-token": token,
+          },
+        }
+      );
+
+      console.log("view submitted:", response.data);
+      setReply("");
+      
+      setAllPosts((prevPosts) => {
+        return prevPosts.map((post) =>
+          post._id === postId ? response.data : post
+        );
+      });
+
+      
+      toast.success("Replay submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting replay:", error);
+      toast.error("Error submitting replay. Please try again.");
+    }
   };
+
+
+
+
+
+
+  const handleVideoContentClick = async (postId) => {
+    try {
+      await axios.post(`http://localhost:5000/api/viewCount/${postId}`);
+     
+    } catch (error) {
+      console.error("Error incrementing video content view count:", error);
+      // Handle error
+    }
+  };
+
   const handleDotsClick = (commentId, commentedBy) => {
     setDisplayButtons((prevButtons) => ({
       ...prevButtons,
@@ -526,11 +589,11 @@ const Home = () => {
                           </p>
                         </div>
                       </div>
-                      <div className="post-div1">
+                     <div className="post-div1">
                         {post.type &&
                         (post.type.toLowerCase() === "mp4" ||
                           post.type.toLowerCase() === "mp3") ? (
-                          <video controls className="post-video">
+                          <video controls className="post-video" onClick={(e) => handleMoreClick(e,post._id)}> 
                             <source
                               src={`${BASE_URL}${post.image}`}
                             />
@@ -543,7 +606,8 @@ const Home = () => {
                             alt="img"
                           />
                         )}
-                      </div>
+                      </div> 
+                       
                       <div>
                         <h3 style={{ padding: "10px", margin: "0%" }}>
                           {post.title}
@@ -553,7 +617,7 @@ const Home = () => {
                             <p className="post-p">{post.content}</p>
                             <button
                               className="post-button"
-                              onClick={handleMoreclick}
+                              onClick={handleMoreClick}
                             >
                               Show Less
                             </button>
@@ -564,7 +628,7 @@ const Home = () => {
                             <p>{post.content.substring(0, 200)}</p>
                             <button
                               className="post-button"
-                              onClick={handleMoreclick}
+                              onClick={(e)=>handleMoreClick(e,post._Id)}
                             >
                               Show More
                             </button>
