@@ -127,10 +127,10 @@ const Home = () => {
       });
 
       
-      toast.success("Replay submitted successfully!");
+      toast.success("view submitted successfully!");
     } catch (error) {
-      console.error("Error submitting replay:", error);
-      toast.error("Error submitting replay. Please try again.");
+      console.error("Error submitting view:", error);
+      toast.error("Error submitting view. Please try again.");
     }
   };
 
