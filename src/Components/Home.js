@@ -96,7 +96,7 @@ const Home = () => {
   // };
 
   const handleMoreClick = async (e, postId) => {
-    setMoreVisible(!moreVisible);
+    setMoreVisible(moreVisible);
     e.preventDefault();
 
     try {
@@ -618,7 +618,7 @@ const Home = () => {
                             <p className="post-p">{post.content}</p>
                             <button
                               className="post-button"
-                              onClick={()=>handleMoreClick()}
+                              onClick={(e)=>handleMoreClick(e)}
                             >
                               Show Less
                             </button>
