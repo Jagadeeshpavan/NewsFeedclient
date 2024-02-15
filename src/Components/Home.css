@@ -210,3 +210,6 @@
     justify-content: flex-end;
     margin-right: 50px;
    }
+    .readmore{
+      cursor: pointer;
+    }

@@ -26,7 +26,8 @@ const Home = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [commentVisible, setCommentVisible] = useState({});
   const [replyVisible, setReplyVisible] = useState({});
-  const [moreVisible, setMoreVisible] = useState(false);
+  const [moreVisible, setMoreVisible] = useState({});
+
   const [comment, setComment] = useState("");
   const [reply, setReply] = useState("");
   const [editing, setEditing] = useState();
@@ -40,9 +41,12 @@ const Home = () => {
   // const [allComments, setAllComments] = useState([]);
 
   const [token] = useState(localStorage.getItem("token"));
-  const [playingStates, setPlayingStates] = useState({});
-
+  const [playingStates, setPlayingStates] = useState(false);
+  const [videoPlayedStates, setVideoPlayedStates] = useState({});
   // const currentPageUrl = window.location.href;
+  const [playedFromStart, setPlayedFromStart] = useState({});
+  
+
 
   useEffect(() => {
     axios
@@ -85,68 +89,66 @@ const Home = () => {
     setReply(e.target.value);
   };
 
-  // const handleMoreclick = async(postId) => {
-  //   setMoreVisible(!moreVisible);
-  //   try {
-  //     await axios.post(`${BASE_URL}/api/viewCount/${postId}`);
-     
-  //   } catch (error) {
-  //     console.error("Error incrementing view count:", error);
-      
-  //   }
-  
-  // };
+  const handleLessClick = (e,postId) => {
+    setMoreVisible((prevVisibility) => ({
+      ...prevVisibility,
+      [postId]: !prevVisibility[postId]
+  }));
+  };
 
   // const handleMoreClick = async (e, postId) => {
-  //   setMoreVisible(moreVisible);
-  //   e.preventDefault();
-
+  //   // Toggle the playing state
+  //   setPlayingStates(prevStates => ({
+  //     ...prevStates,
+  //     [postId]: !prevStates[postId]
+  //   }));
+  //   setMoreVisible(!moreVisible);
+  
   //   try {
   //     const token = localStorage.getItem("token");
-
+  
   //     if (!token) {
-  //       toast.error("Please login to submit a replay.");
+  //       toast.error("Please login to submit a reply.");
   //       window.location.href = "/login";
   //       return; // Stop further execution if token is missing
   //     }
-
-  //     const response = await axios.post(
-  //       `${BASE_URL}/api/viewCount/${postId}`,
-       
-  //       {
-  //         headers: {
-  //           "x-token": token,
-  //         },
-  //       }
-  //     );
-
-  //     console.log("view submitted:", response.data);
-      
-      
-  //     setAllPosts((prevPosts) => {
-  //       return prevPosts.map((post) =>
-  //         post._id === postId ? response.data : post
+  
+  //     // Check if the video is currently playing
+  //     if (!playingStates[postId]) {
+  //       // If the video is not playing (i.e., it's paused), increment the view count
+  //       const response = await axios.post(
+  //         `${BASE_URL}/api/viewCount/${postId}`,
+  //         {}, // Empty request body
+  //         {
+  //           headers: {
+  //             "x-token": token,
+  //           },
+  //         }
   //       );
-  //     });
-
-      
-  //     toast.success("view submitted successfully!");
+  
+  //       console.log("view submitted:", response.data);
+  
+  //       setAllPosts((prevPosts) => {
+  //         return prevPosts.map((post) =>
+  //           post._id === postId ? response.data : post
+  //         );
+  //       });
+  
+  //       toast.success("view submitted successfully!");
+  //     }
   //   } catch (error) {
   //     console.error("Error submitting view:", error);
   //     toast.error("Error submitting view. Please try again.");
   //   }
   // };
-
-
+  
   const handleMoreClick = async (e, postId) => {
-    
-    setPlayingStates(prevStates => ({
-      ...prevStates,
-      [postId]: !prevStates[postId]
-    }));
-    setMoreVisible(moreVisible);
-
-   
+    // Toggle the playing state
+    setMoreVisible((prevVisibility) => ({
+      ...prevVisibility,
+      [postId]: !prevVisibility[postId]
+  }));
+  
     try {
       const token = localStorage.getItem("token");
   
@@ -156,31 +158,46 @@ const Home = () => {
         return; // Stop further execution if token is missing
       }
   
-      const response = await axios.post(
-        `${BASE_URL}/api/viewCount/${postId}`,
-        {}, // Empty request body
-        {
-          headers: {
-            "x-token": token,
-          },
-        }
-      );
-  
-      console.log("view submitted:", response.data);
-      
-      setAllPosts((prevPosts) => {
-        return prevPosts.map((post) =>
-          post._id === postId ? response.data : post
+      // Check if the video is currently playing
+       {
+        // If the video is playing, increment the view count
+        const response = await axios.post(
+          `${BASE_URL}/api/viewCount/${postId}`,
+          {}, // Empty request body
+          {
+            headers: {
+              "x-token": token,
+            },
+          }
         );
-      });
   
-      toast.success("view submitted successfully!");
+        console.log("view submitted:", response.data);
+  
+        setAllPosts((prevPosts) => {
+          return prevPosts.map((post) =>
+            post._id === postId ? response.data : post
+          );
+        });
+  
+        toast.success("view submitted successfully!");
+      }
     } catch (error) {
       console.error("Error submitting view:", error);
       toast.error("Error submitting view. Please try again.");
     }
   };
   
+  const handleVideoPlay = (e,postId) => {
+    if (!playedFromStart[postId]) {
+      // Increase view count only if the video is played from the start
+      handleMoreClick(e, postId);
+      setPlayedFromStart((prevPlayedFromStart) => ({
+          ...prevPlayedFromStart,
+          [postId]: true
+      }));
+  }
+  };
+
 
 
 
@@ -638,19 +655,19 @@ const Home = () => {
                         {post.type &&
                         (post.type.toLowerCase() === "mp4" ||
                           post.type.toLowerCase() === "mp3") ? (
-                          // <video controls className="post-video" > 
-                          //   <source onClick={(e) => handleMoreClick(e,post._id)}
-                          //     src={`${BASE_URL}${post.image}`}
-                          //   />
-                          //   Your browser does not support video tag.
-                          // </video>
-                          <ReactPlayer
-                          url={`${BASE_URL}${post.image}`}
-                          controls={false}
-                          playing={playingStates[post.id]}
-                          className="post-video"
-                          onClick={(e) => handleMoreClick(e,post._id)}
-                        />
+                          <video controls className="post-video" onPlay={(e) => handleVideoPlay(e, post._id)}> 
+                            <source 
+                              src={`${BASE_URL}${post.image}`}
+                            />
+                            Your browser does not support video tag.
+                          </video>
+                        //   <ReactPlayer
+                        //   url={`${BASE_URL}${post.image}`}
+                        //   controls={true}
+                        //   playing={playingStates[post._id]||false}
+                        //   className="post-video"
+                        //   onClick={(e) => handleMoreClick(e,post._id)}
+                        // />
 
 
 
@@ -667,26 +684,40 @@ const Home = () => {
                         <h3 style={{ padding: "10px", margin: "0%" }}>
                           {post.title}
                         </h3>
-                        {moreVisible && (
+                        {moreVisible[post._id] && (
                           <div className="post-div5">
                             <p className="post-p">{post.content}</p>
                             <button
                               className="post-button"
-                              onClick={(e)=>handleMoreClick(e)}
+                              onClick={(e)=>handleLessClick(e, post._id)}
                             >
                               Show Less
                             </button>
                           </div>
                         )}
-                        {!moreVisible && (
+                        {!moreVisible[post._id] && (
                           <div className="post-div5">
-                            <p>{post.content.substring(0, 200)}</p>
-                            <button
+                       <p>
+  {post.content.length > 80 ? (
+    <>
+      <span dangerouslySetInnerHTML={{__html: `${post.content.substring(0, 80)}...`}} />
+      <strong>
+        <span className="readmore" onClick={(e) => handleMoreClick(e, post._id)}>Read more</span>
+      </strong>
+    </>
+  ) : (
+    post.content
+  )}
+</p>
+
+
+
+                            {/* <button
                               className="post-button"
                               onClick={(e)=>handleMoreClick(e,post._id)}
                             >
                               Show More
-                            </button>
+                            </button> */}
                           </div>
                         )}
                       </div>
