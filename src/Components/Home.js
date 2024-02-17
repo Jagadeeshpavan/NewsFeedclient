@@ -20,6 +20,8 @@ import { BASE_URL } from '../Helper.js/Helper';
 import { Helmet } from 'react-helmet-async';
 import { MdOutlineViewSidebar } from "react-icons/md";
 import ReactPlayer from 'react-player'
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 
 const Home = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -45,8 +47,9 @@ const Home = () => {
   const [videoPlayedStates, setVideoPlayedStates] = useState({});
   // const currentPageUrl = window.location.href;
   const [playedFromStart, setPlayedFromStart] = useState({});
+  const [shareCount, setShareCount] = useState({});
   
-
+  
 
   useEffect(() => {
     axios
@@ -187,6 +190,9 @@ const Home = () => {
     }
   };
   
+
+
+  
   const handleVideoPlay = (e,postId) => {
     if (!playedFromStart[postId]) {
       // Increase view count only if the video is played from the start
@@ -198,18 +204,49 @@ const Home = () => {
   }
   };
 
-
-
-
-  const handleVideoContentClick = async (postId) => {
+  const handleShareCount = async (postId) => {
     try {
-      await axios.post(`http://localhost:5000/api/viewCount/${postId}`);
-     
+      const token = localStorage.getItem("token");
+  
+      if (!token) {
+        toast.error("Please login to submit a reply.");
+        window.location.href = "/login";
+        return; // Stop further execution if token is missing
+      }
+      // Make an HTTP POST request to your backend endpoint to update share count
+      {
+        // If the video is playing, increment the view count
+        const response = await axios.post(
+          `${BASE_URL}/api/shareCount/${postId}`,
+          {}, // Empty request body
+          {
+            headers: {
+              "x-token": token,
+            },
+          }
+        );
+  
+        console.log("share submitted:", response.data);
+  
+        setAllPosts((prevPosts) => {
+          return prevPosts.map((post) =>
+            post._id === postId ? response.data : post
+          );
+        });
+  
+        toast.success("share submitted successfully!");
+      }
     } catch (error) {
-      console.error("Error incrementing video content view count:", error);
-      // Handle error
+      console.error('Error sharing post:', error);
     }
   };
+  
+
+
+
+
+
+  
 
   const handleDotsClick = (commentId, commentedBy) => {
     setDisplayButtons((prevButtons) => ({
@@ -489,6 +526,35 @@ const Home = () => {
     }
   };
 
+  const handlePostDelete = async (postId) => {
+    try {
+      
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this post?"
+      );
+      if (confirmDelete) {
+        const token = localStorage.getItem("token");
+        const response = await axios.delete(`${BASE_URL}/api/deletePost/${postId}`, {
+          headers: { "x-token": token },
+        });
+        if (response.status === 200) {
+          setAllPosts((prevPosts) => prevPosts.filter(post => post._id !== postId));
+          toast.success("Post deleted successfully");
+        } else {
+          console.error("Error deleting post:", response.data.error);
+          toast.error("Error deleting post. Please try again.");
+        }
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error.message);
+      toast.error("Error deleting post. Please try again.");
+    }
+  };
+
+
+
+
+
   const handleEditComment = async (commentId, currentText, postId) => {
     // const newText = prompt("Edit your comment:", currentText);
 
@@ -650,7 +716,15 @@ const Home = () => {
                             Posted {calculateTimeDifference(post.createdAt)}
                           </p>
                         </div>
+                        
                       </div>
+
+
+                      <div className="post-editdelete">
+                      <FaEdit size={25} style={{ color: 'blue' }} /*onClick={handlepostEdit}*/  />
+      <MdDeleteForever size={25} style={{ color: 'red' }} onClick={(e)=>handlePostDelete(e,post._id)}  />
+                          </div>
+
                      <div className="post-div1">
                         {post.type &&
                         (post.type.toLowerCase() === "mp4" ||
@@ -764,7 +838,7 @@ const Home = () => {
                         >
                           <IoMdShare className="post-like" />
                           <p style={{ margin: "0%", marginLeft: "5px" }}>
-                            Share
+                          {post.shareCount} Share
                           </p>
                           
 
@@ -794,32 +868,36 @@ const Home = () => {
                    
                   quote="please share this post"
                   hashtag = "#code"
-                  
+                  onClick={() => handleShareCount(post._id)} 
                   >
                    <FacebookIcon size={40} round={true}/>  
                   </FacebookShareButton>
                   
-                  <WhatsappShareButton
-                   url={`https://news-feedclient.vercel.app/post/${post._id}`} 
-                  >
                   
-                    <WhatsappIcon size={40} round={true}/>
-                  
-                  </WhatsappShareButton>
+<WhatsappShareButton
+  url={`https://news-feedclient.vercel.app/post/${post._id}`}
+  onClick={() => handleShareCount(post._id)}
+>
+  <WhatsappIcon size={40} round={true} />
+</WhatsappShareButton>
+
             
                   <TwitterShareButton
                   url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
+                  onClick={() => handleShareCount(post._id)} 
                   >
                     <TwitterIcon size={40} round={true}/>
                   </TwitterShareButton>
                   <LinkedinShareButton
                   url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
+                  onClick={() => handleShareCount(post._id)} 
                   >
                   <LinkedinIcon size={40} round={true}/>
                   </LinkedinShareButton>
                   <EmailShareButton
                   url={`https://news-feedclient.vercel.app/post/${post._id}`}  // Dynamic post URL
-                  >
+                  onClick={() => handleShareCount(post._id)} 
+                 >
                     <EmailIcon size={40} round={true}/>
                   </EmailShareButton>
                    </div>

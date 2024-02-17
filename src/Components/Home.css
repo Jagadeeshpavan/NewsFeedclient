@@ -213,3 +213,10 @@
     .readmore{
       cursor: pointer;
     }
+    .post-editdelete{
+      
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+      column-gap: 10px;
+    }
