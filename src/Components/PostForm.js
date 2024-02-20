@@ -12,9 +12,12 @@ import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { BASE_URL } from '../Helper.js/Helper';
-
+import { useLocation } from 'react-router-dom';
 const PostForm = () => {
-    
+  const location = useLocation();
+  const post = location.state;
+
+    console.log(post);
     const navigate = useNavigate();
     const [user, setUser] = useState({});
     const token = localStorage.getItem("token");
@@ -105,7 +108,8 @@ return (
       ) : (
         <p>Loading user data...</p>
       )}
-                <Tabs />
+                <Tabs post={post} />
+
         </div>
 
        

@@ -13,6 +13,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Profile1 from './Profile1';
 import { BASE_URL } from '../Helper.js/Helper';
+import { FaEdit } from "react-icons/fa";
+
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,20 +49,27 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
-  const [title, setTitle] = useState('');
+export default function BasicTabs({post}) {
+  
   const [file, setFile] = useState(null);
-  const [previewURL, setPreviewURL] = useState(null);
+  // const [previewURL, setPreviewURL] = useState(null);
+  const [previewURL, setPreviewURL] = useState(post ? `${BASE_URL}${post.image}` || null : null);
   const [error, setError] = useState('');
   const [token] = useState(localStorage.getItem('token'));
   const [submitting, setSubmitting] = useState('');
 
-  const [formData, setFormData] = useState({
-    image: '',
-    title: '',
-    content: '',
-  });
+  // const [formData, setFormData] = useState({
+  //   image: '',
+  //   title: '',
+  //   content: '',
+  // });
 
+  const [formData, setFormData] = useState({
+    image: post ? post.image || '' : '',
+    title: post ? post.title || '' : '',
+    content: post ? post.content || '' : '',
+  });
+  
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -80,7 +89,7 @@ export default function BasicTabs() {
     setPreviewURL(URL.createObjectURL(selectedFile));
   };
 
-  const handleUpload = async (e) => {
+  const handleAddPost = async (e) => {
     e.preventDefault();
 
     try {
@@ -122,6 +131,54 @@ export default function BasicTabs() {
       setSubmitting(false);
     }
   };
+ 
+  const handleEditPost = async (e,postId) => {
+    e.preventDefault();
+
+    try {
+      const formDataWithPicture = new FormData();
+      formDataWithPicture.append('title', formData.title);
+      formDataWithPicture.append('content', formData.content);
+      formDataWithPicture.append('image', formData.image);
+      formDataWithPicture.append('timestamp', new Date().toISOString());
+
+      
+      
+
+      const response = await axios.put(
+        `${BASE_URL}/api/editPost/${postId}`,
+        formDataWithPicture,
+        {
+          headers: {
+            'x-token': token,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      console.log(response);
+      setError('');
+      alert('Post edited successfully.');
+      setFormData({
+        image: '',
+        title: '',
+        content: '',
+      });
+      setFile('');
+      // Generate a preview URL
+      setPreviewURL(null);
+    } catch (error) {
+      console.error(error);
+      setError('Internal Server Error');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+ 
+
+
+
+
 
   const [value, setValue] = React.useState(0);
 
@@ -140,7 +197,7 @@ export default function BasicTabs() {
       </Box>
       <CustomTabPanel value={value} index={0}>
         <div className="upload-form-container11">
-          <h2>Add Post</h2>
+        <h2>{post ? 'Edit Post' : 'Add Post'}</h2>
           <form className='Postform'>
             <label htmlFor="title">Title: </label>
             <input
@@ -163,8 +220,31 @@ export default function BasicTabs() {
               required
             ></textarea>
 
+
+
+
             {!file ? (
               <label htmlFor="file" className="upload-icon-label">
+                {post  &&  (
+          <div className="preview-container">
+             {post.type &&
+                        (post.type.toLowerCase() === "mp4" ||
+                          post.type.toLowerCase() === "mp3") ? (
+                          <video controls className="post-video" > 
+                            <source 
+                              src={previewURL} 
+                            />
+                            Your browser does not support video tag.
+                          </video>
+                        ) : (
+                          <img
+                            className="post-picture"
+                            src={previewURL} 
+                            
+                          />
+                        )}
+          </div>
+        )}
                 <input
                   type="file"
                   id="file"
@@ -175,8 +255,14 @@ export default function BasicTabs() {
                   required
                 />
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <FaCloudUploadAlt className="upload-icon" />
-                  <h5 style={{ margin: '0%', padding: '10px' }}>Upload video or photo</h5>
+                {post ? (
+    <h5 style={{ margin: '0%', padding: '10px' }}><FaEdit /></h5>
+  ) : (
+    <>
+      <FaCloudUploadAlt className="upload-icon" />
+      <h5 style={{ margin: '0%', padding: '10px' }}>Upload video or photo</h5>
+    </>
+  )}
                 </div>
               </label>
             ) : (
@@ -192,9 +278,15 @@ export default function BasicTabs() {
               </div>
             )}
 
-            <button type="button" className='Postform-button' onClick={handleUpload}>
-              Post
-            </button>
+{post ? (
+        <button type="button" className='Postform-button' onClick={(e)=>handleEditPost(e,post._id)}>
+          Update
+        </button>
+      ):(<button type="button" className='Postform-button' onClick={handleAddPost}>
+      Post
+    </button>)}
+
+            
           </form>
         </div>
       </CustomTabPanel>

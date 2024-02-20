@@ -22,6 +22,7 @@ import { MdOutlineViewSidebar } from "react-icons/md";
 import ReactPlayer from 'react-player'
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -48,8 +49,15 @@ const Home = () => {
   // const currentPageUrl = window.location.href;
   const [playedFromStart, setPlayedFromStart] = useState({});
   const [shareCount, setShareCount] = useState({});
+  const navigate = useNavigate();
   
-  
+  const handlePostEdit = (post) => {
+    console.log(post);
+    navigate("/postForm", { state: post });
+  };
+
+
+
 
   useEffect(() => {
     axios
@@ -527,6 +535,8 @@ const Home = () => {
   };
 
   const handlePostDelete = async (postId) => {
+    console.log("postId:", postId);
+
     try {
       
       const confirmDelete = window.confirm(
@@ -721,8 +731,8 @@ const Home = () => {
 
 
                       <div className="post-editdelete">
-                      <FaEdit size={25} style={{ color: 'blue' }} /*onClick={handlepostEdit}*/  />
-      <MdDeleteForever size={25} style={{ color: 'red' }} onClick={(e)=>handlePostDelete(e,post._id)}  />
+                      <FaEdit size={25} style={{ color: 'blue' }} onClick={()=>handlePostEdit(post)}  />
+      <MdDeleteForever size={25} style={{ color: 'red' }} onClick={(e)=>handlePostDelete(post._id)}  />
                           </div>
 
                      <div className="post-div1">
@@ -735,16 +745,6 @@ const Home = () => {
                             />
                             Your browser does not support video tag.
                           </video>
-                        //   <ReactPlayer
-                        //   url={`${BASE_URL}${post.image}`}
-                        //   controls={true}
-                        //   playing={playingStates[post._id]||false}
-                        //   className="post-video"
-                        //   onClick={(e) => handleMoreClick(e,post._id)}
-                        // />
-
-
-
                         ) : (
                           <img
                             className="post-picture"
