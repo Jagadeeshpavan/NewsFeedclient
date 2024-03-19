@@ -8,11 +8,14 @@
   
   .post-div {
     display: flex;
-     align-items: center;
-    margin-bottom: 10px; 
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
     
   }
-
+.flex432{
+  display: flex;
+}
 /* Modal styles */
 .modal {
   position: fixed;
@@ -219,4 +222,10 @@
       justify-content: flex-end;
       margin-bottom: 10px;
       column-gap: 10px;
+      
+    }
+    .edit-delete-text{
+      display: flex;
+      align-items: center;
+      cursor: pointer;
     }

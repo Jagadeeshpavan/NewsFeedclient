@@ -21,6 +21,7 @@ import { Helmet } from 'react-helmet-async';
 import { MdOutlineViewSidebar } from "react-icons/md";
 import ReactPlayer from 'react-player'
 import { FaEdit } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 
@@ -107,51 +108,7 @@ const Home = () => {
   }));
   };
 
-  // const handleMoreClick = async (e, postId) => {
-  //   // Toggle the playing state
-  //   setPlayingStates(prevStates => ({
-  //     ...prevStates,
-  //     [postId]: !prevStates[postId]
-  //   }));
-  //   setMoreVisible(!moreVisible);
   
-  //   try {
-  //     const token = localStorage.getItem("token");
-  
-  //     if (!token) {
-  //       toast.error("Please login to submit a reply.");
-  //       window.location.href = "/login";
-  //       return; // Stop further execution if token is missing
-  //     }
-  
-  //     // Check if the video is currently playing
-  //     if (!playingStates[postId]) {
-  //       // If the video is not playing (i.e., it's paused), increment the view count
-  //       const response = await axios.post(
-  //         `${BASE_URL}/api/viewCount/${postId}`,
-  //         {}, // Empty request body
-  //         {
-  //           headers: {
-  //             "x-token": token,
-  //           },
-  //         }
-  //       );
-  
-  //       console.log("view submitted:", response.data);
-  
-  //       setAllPosts((prevPosts) => {
-  //         return prevPosts.map((post) =>
-  //           post._id === postId ? response.data : post
-  //         );
-  //       });
-  
-  //       toast.success("view submitted successfully!");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error submitting view:", error);
-  //     toast.error("Error submitting view. Please try again.");
-  //   }
-  // };
   
   const handleMoreClick = async (e, postId) => {
     // Toggle the playing state
@@ -250,13 +207,21 @@ const Home = () => {
   };
   
 
-
+  const handlePostDotsClick = (postId, postedBy) => {
+    setDisplayButtons((prevButtons) => ({
+      ...prevButtons,
+      [postId]: {
+        visible: !prevButtons[postId]?.visible,
+        currentPostUser: postedBy,
+      },
+    }));
+  };
 
 
 
   
 
-  const handleDotsClick = (commentId, commentedBy) => {
+  const handleCommentDotsClick = (commentId, commentedBy) => {
     setDisplayButtons((prevButtons) => ({
       ...prevButtons,
       [commentId]: {
@@ -713,6 +678,7 @@ const Home = () => {
                   return (
                     <div className="post" key={post.id}>
                       <div className="post-div">
+                       <div className="flex432">
                         <img
                           className="post-profile-pic"
                           src={`${BASE_URL}${user.profilePicture}`}
@@ -726,14 +692,73 @@ const Home = () => {
                             Posted {calculateTimeDifference(post.createdAt)}
                           </p>
                         </div>
-                        
-                      </div>
+                        </div>
+                        <div
+                                            onClick={() =>
+                                              handlePostDotsClick(
+                                                post._id,
+                                                post.Author?.UserId
+                                              )
+                                            }
+                                            className="comment-buttons"
+                                          >
+                                            <HiOutlineDotsVertical size={20} />
+
+                                            {displayButtons[post._id]
+                                            ?.visible && (
+                                            <div className="comment-buttons">
+                                              {displayButtons[post._id]
+                                                ?.currentPostUser ===
+                                              loginUser ? (
+                                                <>
+                                                <div className="edit-delete-text">
+                                                 <MdEdit size={25} style={{ color: 'orange' }} onClick={()=>handlePostEdit(post)} 
+                                                  />
+                                                  <span style={{ marginLeft: '5px' }}>Edit</span>
+                                                  </div>
+                                                  <div className="edit-delete-text">
+                                                 <MdDeleteForever size={25} style={{ color: 'red' }} onClick={(e)=>handlePostDelete(post._id)}  />
+                                                 <span style={{ marginLeft: '5px' }}>Delete</span>
+                                                 </div>
+                                                </>
+                                              ) : (
+                                                <button className="creply-button">Report</button>
+                                              )}
+                                            </div>
+                                          )}
 
 
-                      <div className="post-editdelete">
+
+
+
+                                          </div>
+                        {/* <div className="post-editdelete">
                       <FaEdit size={25} style={{ color: 'blue' }} onClick={()=>handlePostEdit(post)}  />
       <MdDeleteForever size={25} style={{ color: 'red' }} onClick={(e)=>handlePostDelete(post._id)}  />
-                          </div>
+                          </div> */}
+                      </div>
+                      {/* {displayButtons[post._id]
+                                            ?.visible && (
+                                            <div className="comment-buttons">
+                                              {displayButtons[post._id]
+                                                ?.currentPostUser ===
+                                              loginUser ? (
+                                                <>
+                                                 <FaEdit size={25} style={{ color: 'blue' }} onClick={()=>handlePostEdit(post)}  />
+                                                 <MdDeleteForever size={25} style={{ color: 'red' }} onClick={(e)=>handlePostDelete(post._id)}  />
+                                                  
+                                                </>
+                                              ) : (
+                                                <button className="creply-button">Report</button>
+                                              )}
+                                            </div>
+                                          )}
+
+ */}
+
+
+
+                      
 
                      <div className="post-div1">
                         {post.type &&
@@ -1026,7 +1051,7 @@ const Home = () => {
                                           </div>
                                           <div
                                             onClick={() =>
-                                              handleDotsClick(
+                                              handleCommentDotsClick(
                                                 comment._id,
                                                 commentedUser._id
                                               )

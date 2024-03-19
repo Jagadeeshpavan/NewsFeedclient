@@ -65,7 +65,7 @@ function Navbar() {
           <div className='signin-button1'>
             <Link to="/postForm" style={{color:'black',textDecoration:'none'}}>
               <div className='Postform-div-navbar'>
-              {user.profilePicture == 'null' || user.profilePicture == null ? (
+              {user && (user.profilePicture == 'null' || user.profilePicture == null ? (
     <div className="post-profile-pic" style={{ width: "50px", height: "50px", borderRadius: "50%", backgroundColor: generateBackgroundColor(user), display: "flex", justifyContent: "center", alignItems: "center" }}>
 <span style={{ fontSize: "20px", color: "white" }}>{user.firstName?.charAt(0).toUpperCase()}</span>
   </div>
@@ -78,7 +78,7 @@ function Navbar() {
                     alt='img'
                   />
                 )
-  )}
+  ))}
               </div>
             </Link>
           </div>
