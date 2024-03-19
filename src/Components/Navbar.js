@@ -47,9 +47,9 @@ function Navbar() {
     <div className='main'>
       <div className='navbar'>
         <div className='main-Logo'>
-          <img className='nf-logo' src='https://as1.ftcdn.net/v2/jpg/04/08/44/62/1000_F_408446246_Lq0KqLi6ETZxS4SLpRgx1RAw7QIoAwPL.jpg' alt='nf-logo-alt-tag' />
+          <img className='nf-logo' src='https://is3-ssl.mzstatic.com/image/thumb/Purple71/v4/f3/c3/78/f3c37877-c178-b36b-cc96-40597046ff5d/source/256x256bb.jpg' alt='nf-logo-alt-tag' />
           <div className='newsfeed-name'>
-            <span className='newsfeed'>News Feed</span>
+            <span className='newsfeed'>Movies Feed</span>
           </div>
         </div>
         {!token ? (
