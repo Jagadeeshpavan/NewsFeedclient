@@ -664,7 +664,7 @@ const Home = () => {
       <div className="App">
         <div style={{ width: "75%", margin: "auto" }}>
           <header className="App-header">
-            <h1>Facebook Feed</h1>
+            <h2>Movies Feed</h2>
           </header>
           <div className="feed-container">
             {allPosts &&
@@ -685,9 +685,9 @@ const Home = () => {
                           alt="img"
                         />
                         <div>
-                          <h2 style={{ margin: "0%", marginLeft: "15px" }}>
+                          <h3 style={{ margin: "0%", marginLeft: "15px" }}>
                             {`${user.firstName} ${user.lastName}`}
-                          </h2>
+                          </h3>
                           <p className="card1-timestamp">
                             Posted {calculateTimeDifference(post.createdAt)}
                           </p>
